@@ -12,6 +12,7 @@ import { Header } from '@/components/Header'
 import { GlobalSettings } from '@/components/GlobalSettings'
 import { ModuleList } from '@/components/ModuleList'
 import { JsonPreview } from '@/components/JsonPreview'
+import { TerminalMockup } from '@/components/TerminalMockup'
 import { PresetLoader } from '@/components/PresetLoader'
 import { useConfigStore } from '@/store/configStore'
 import { MODULE_DEFINITIONS } from '@/lib/moduleDefinitions'
@@ -80,7 +81,12 @@ export function App() {
         >
           <GlobalSettings />
           <ModuleList />
-          <JsonPreview />
+          <div className="flex flex-col overflow-hidden">
+            <JsonPreview />
+            <div className="border-l border-border p-4">
+              <TerminalMockup />
+            </div>
+          </div>
         </div>
 
         <DragOverlay>
