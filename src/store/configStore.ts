@@ -12,6 +12,7 @@ import type {
   ModuleType,
   PresetConfig,
 } from '@/lib/moduleDefinitions'
+import { PRESETS } from '@/lib/presets'
 
 export interface ConfigState {
   globalSettings: GlobalSettings
@@ -190,6 +191,14 @@ export const useConfigStore = create<ConfigState>()(
         globalSettings: state.globalSettings,
         modules: state.modules,
       }),
+      onRehydrateStorage: () => (state) => {
+        if (state && state.modules.length === 0) {
+          const neofetch = PRESETS[0]
+          if (neofetch) {
+            state.loadPreset(neofetch as PresetConfig)
+          }
+        }
+      },
     },
   ),
 )
