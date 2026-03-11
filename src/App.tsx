@@ -12,6 +12,7 @@ import { Header } from '@/components/Header'
 import { GlobalSettings } from '@/components/GlobalSettings'
 import { ModuleList } from '@/components/ModuleList'
 import { JsonPreview } from '@/components/JsonPreview'
+import { PresetLoader } from '@/components/PresetLoader'
 import { useConfigStore } from '@/store/configStore'
 import { MODULE_DEFINITIONS } from '@/lib/moduleDefinitions'
 import type { ModuleType } from '@/lib/moduleDefinitions'
@@ -66,7 +67,7 @@ export function App() {
 
   return (
     <div className="flex h-screen flex-col bg-bg-base text-text-primary">
-      <Header />
+      <Header presetSlot={<PresetLoader />} />
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
