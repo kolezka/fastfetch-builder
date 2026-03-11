@@ -1,0 +1,103 @@
+import type { PresetConfig } from '@/lib/moduleDefinitions'
+
+export const PRESETS: readonly PresetConfig[] = [
+  {
+    name: 'Neofetch',
+    description: 'Classic neofetch-style layout with common system info',
+    globalSettings: {
+      logo: { source: 'none', type: 'auto', padding: { top: 0, left: 0, right: 0 } },
+      display: { separator: ': ', color: 'cyan', brightColor: true },
+    },
+    modules: [
+      { type: 'title' },
+      { type: 'separator' },
+      { type: 'os' },
+      { type: 'kernel' },
+      { type: 'uptime' },
+      { type: 'packages' },
+      { type: 'shell' },
+      { type: 'terminal' },
+      { type: 'wm' },
+      { type: 'cpu' },
+      { type: 'gpu' },
+      { type: 'memory' },
+      { type: 'colors' },
+    ],
+  },
+  {
+    name: 'Minimal',
+    description: 'Bare essentials — OS, kernel, shell, and uptime',
+    globalSettings: {
+      logo: { source: 'none' },
+      display: { separator: ' → ', color: 'green', brightColor: false },
+    },
+    modules: [
+      { type: 'os' },
+      { type: 'kernel' },
+      { type: 'shell' },
+      { type: 'uptime' },
+    ],
+  },
+  {
+    name: 'Hardware',
+    description: 'Detailed hardware info with temperatures and driver versions',
+    globalSettings: {
+      logo: { source: 'none', type: 'auto', padding: { top: 0, left: 0, right: 0 } },
+      display: { separator: ': ', color: 'yellow', brightColor: true, keyWidth: 12 },
+    },
+    modules: [
+      { type: 'title' },
+      { type: 'separator' },
+      { type: 'cpu', options: { temp: true, showPeCoreCount: true, freqNdig: 2 } },
+      { type: 'cpuusage' },
+      { type: 'gpu', options: { temp: true, driverVersion: true } },
+      { type: 'memory' },
+      { type: 'swap' },
+      { type: 'disk', options: { folders: '/' } },
+      { type: 'battery' },
+      { type: 'display', options: { compactType: 'original' } },
+      { type: 'brightness' },
+    ],
+  },
+  {
+    name: 'Developer',
+    description: 'Developer-focused with shell, terminal, packages, and network',
+    globalSettings: {
+      logo: { source: 'none' },
+      display: { separator: '  ', color: 'magenta', brightColor: true },
+    },
+    modules: [
+      { type: 'title' },
+      { type: 'separator' },
+      { type: 'os' },
+      { type: 'kernel' },
+      { type: 'shell' },
+      { type: 'terminal' },
+      { type: 'packages' },
+      { type: 'cpu' },
+      { type: 'memory' },
+      { type: 'disk' },
+      { type: 'localip', options: { compact: true } },
+      { type: 'wifi' },
+      { type: 'colors' },
+    ],
+  },
+  {
+    name: 'Paleofetch',
+    description: 'Paleofetch-inspired minimal output with muted colors',
+    globalSettings: {
+      logo: { source: 'none' },
+      display: { separator: ' ~ ', color: 'blue', brightColor: false },
+    },
+    modules: [
+      { type: 'os' },
+      { type: 'kernel' },
+      { type: 'uptime' },
+      { type: 'shell' },
+      { type: 'wm' },
+      { type: 'memory' },
+      { type: 'cpu' },
+      { type: 'colors' },
+    ],
+  },
+] as const
