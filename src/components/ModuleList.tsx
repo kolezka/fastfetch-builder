@@ -1,5 +1,6 @@
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { useDroppable } from '@dnd-kit/core'
+import { AnimatePresence } from 'framer-motion'
 import { useConfigStore } from '@/store/configStore'
 import { ModulePalette } from '@/components/ModulePalette'
 import { ModuleCard } from '@/components/ModuleCard'
@@ -32,11 +33,13 @@ export function ModuleList() {
             </p>
           ) : (
             <SortableContext items={moduleIds} strategy={verticalListSortingStrategy}>
-              <div className="space-y-2">
-                {modules.map((module) => (
-                  <ModuleCard key={module.id} module={module} />
-                ))}
-              </div>
+              <AnimatePresence mode="popLayout">
+                <div className="space-y-2">
+                  {modules.map((module) => (
+                    <ModuleCard key={module.id} module={module} />
+                  ))}
+                </div>
+              </AnimatePresence>
             </SortableContext>
           )}
         </div>

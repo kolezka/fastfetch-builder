@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import { motion, AnimatePresence } from 'framer-motion'
 import { MODULE_DEFINITIONS } from '@/lib/moduleDefinitions'
 import type { AnsiColor, ModuleInstance, ModuleOptionField } from '@/lib/moduleDefinitions'
 import { useConfigStore } from '@/store/configStore'
@@ -154,9 +155,14 @@ export function ModuleCard({ module }: ModuleCardProps) {
   }
 
   return (
-    <div
+    <motion.div
       ref={setNodeRef}
       style={style}
+      layout
+      initial={{ opacity: 0, y: -8 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, x: -16 }}
+      transition={{ duration: 0.15 }}
       className={`rounded-lg border border-border bg-bg-surface ${isDragging ? 'opacity-50' : ''}`}
     >
       <div className="flex items-center gap-2 px-3 py-2">
@@ -199,13 +205,23 @@ export function ModuleCard({ module }: ModuleCardProps) {
         </button>
       </div>
 
-      {expanded && definition.optionFields.length > 0 && (
-        <div className="border-t border-border px-3 py-3 space-y-2">
-          {definition.optionFields.map((field) => (
-            <OptionEditor key={field} module={module} field={field} />
-          ))}
-        </div>
-      )}
-    </div>
+      <AnimatePresence>
+        {expanded && definition.optionFields.length > 0 && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="overflow-hidden"
+          >
+            <div className="border-t border-border px-3 py-3 space-y-2">
+              {definition.optionFields.map((field) => (
+                <OptionEditor key={field} module={module} field={field} />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   )
 }
