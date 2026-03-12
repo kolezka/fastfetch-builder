@@ -2,6 +2,8 @@ import { useMemo } from 'react'
 import CodeMirror from '@uiw/react-codemirror'
 import { json } from '@codemirror/lang-json'
 import { EditorView } from '@codemirror/view'
+import { HighlightStyle, syntaxHighlighting } from '@codemirror/language'
+import { tags } from '@lezer/highlight'
 import { useConfigStore } from '@/store/configStore'
 import { generateJsonc } from '@/lib/generateJsonc'
 
@@ -37,7 +39,26 @@ const darkTheme = EditorView.theme(
   { dark: true },
 )
 
-const extensions = [json(), darkTheme, EditorView.lineWrapping]
+const syntaxColors = HighlightStyle.define([
+  { tag: tags.propertyName, color: '#00d4ff' },
+  { tag: tags.string, color: '#00cc88' },
+  { tag: tags.number, color: '#f0c040' },
+  { tag: tags.bool, color: '#cc66ff' },
+  { tag: tags.null, color: '#cc66ff' },
+  { tag: tags.keyword, color: '#cc66ff' },
+  { tag: tags.punctuation, color: '#666680' },
+  { tag: tags.brace, color: '#e0e0e8' },
+  { tag: tags.squareBracket, color: '#e0e0e8' },
+  { tag: tags.separator, color: '#666680' },
+  { tag: tags.comment, color: '#666680', fontStyle: 'italic' },
+])
+
+const extensions = [
+  json(),
+  darkTheme,
+  syntaxHighlighting(syntaxColors),
+  EditorView.lineWrapping,
+]
 
 export function JsonPreview() {
   const globalSettings = useConfigStore((s) => s.globalSettings)
@@ -61,6 +82,7 @@ export function JsonPreview() {
       <div className="flex-1 overflow-auto bg-bg-code">
         <CodeMirror
           value={jsonc}
+          theme="none"
           extensions={extensions}
           editable={false}
           readOnly={true}

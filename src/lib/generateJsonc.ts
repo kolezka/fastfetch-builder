@@ -63,14 +63,12 @@ function formatModuleEntry(module: ModuleInstance, level: number): string {
 
 function formatLogoSection(logo: GlobalSettings['logo']): string[] {
   const lines: string[] = []
-  lines.push(`${indent(1)}// Logo`)
 
   if (logo.source === 'none') {
-    lines.push(`${indent(1)}"logo": {`)
-    lines.push(`${indent(2)}"source": "none"`)
-    lines.push(`${indent(1)}},`)
     return lines
   }
+
+  lines.push(`${indent(1)}// Logo`)
 
   const logoEntries: string[] = []
   logoEntries.push(`${indent(2)}"source": ${formatValue(logo.source, 2)}`)
