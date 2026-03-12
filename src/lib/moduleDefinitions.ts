@@ -54,24 +54,142 @@ export interface ModuleInstance {
 
 export type LogoSource = 'none' | string
 
+export type LogoType = 'auto' | 'builtin' | 'small' | 'file' | 'file-raw' | 'data' | 'data-raw' | 'sixel' | 'kitty' | 'kitty-direct' | 'kitty-icat' | 'iterm' | 'chafa' | 'raw' | 'none'
+
+export type LogoPosition = 'left' | 'top' | 'right'
+
+export type ChafaCanvasMode = 'TRUECOLOR' | 'INDEXED_256' | 'INDEXED_240' | 'INDEXED_16' | 'FGBG_BGFG' | 'FGBG' | 'INDEXED_8' | 'INDEXED_16_8'
+
+export type ChafaColorSpace = 'RGB' | 'DIN99D'
+
+export type ChafaDitherMode = 'NONE' | 'ORDERED' | 'DIFFUSION'
+
+export interface ChafaSettings {
+  fgOnly?: boolean
+  symbols?: string
+  canvasMode?: ChafaCanvasMode
+  colorSpace?: ChafaColorSpace
+  ditherMode?: ChafaDitherMode
+}
+
 export interface LogoSettings {
   source: LogoSource
-  type?: 'auto' | 'builtin' | 'small'
+  type?: LogoType
   color?: AnsiColor[]
   padding?: { top?: number; left?: number; right?: number }
+  width?: number | null
+  height?: number | null
+  printRemaining?: boolean
+  preserveAspectRatio?: boolean
+  recache?: boolean
+  position?: LogoPosition
+  chafa?: ChafaSettings
+}
+
+export type KeyType = 'none' | 'string' | 'icon' | 'both' | 'both-0' | 'both-1' | 'both-2' | 'both-3' | 'both-4'
+
+export type BinaryPrefix = 'iec' | 'si' | 'jedec'
+
+export type SizeMaxPrefix = 'B' | 'kB' | 'MB' | 'GB' | 'TB' | 'PB' | 'EB' | 'ZB' | 'YB'
+
+export type TempUnit = 'C' | 'F' | 'K' | 'D'
+
+export type SpaceBeforeUnit = 'default' | 'always' | 'never'
+
+export type TrailingZeros = 'default' | 'always' | 'never'
+
+export interface DisplayColorSettings {
+  keys?: string
+  title?: string
+  output?: string
+  separator?: string
+}
+
+export interface DisplayKeySettings {
+  width?: number
+  type?: KeyType
+  paddingLeft?: number
+}
+
+export interface DisplaySizeSettings {
+  binaryPrefix?: BinaryPrefix
+  maxPrefix?: SizeMaxPrefix
+  ndigits?: number
+}
+
+export interface DisplayTempSettings {
+  unit?: TempUnit
+  ndigits?: number
+  color?: { green?: string; yellow?: string; red?: string }
+  spaceBeforeUnit?: SpaceBeforeUnit
+}
+
+export interface DisplayBarSettings {
+  char?: { elapsed?: string; total?: string }
+  border?: { left?: string; right?: string } | null
+  color?: { elapsed?: string; total?: string; border?: string } | null
+  width?: number
+}
+
+export interface DisplayPercentSettings {
+  type?: number
+  ndigits?: number
+  color?: { green?: string; yellow?: string; red?: string }
+  spaceBeforeUnit?: SpaceBeforeUnit
+  width?: number
+}
+
+export interface DisplayFreqSettings {
+  ndigits?: number
+  spaceBeforeUnit?: SpaceBeforeUnit
+}
+
+export interface DisplayDurationSettings {
+  abbreviation?: boolean
+  spaceBeforeUnit?: SpaceBeforeUnit
+}
+
+export interface DisplayFractionSettings {
+  ndigits?: number
+  trailingZeros?: TrailingZeros
 }
 
 export interface DisplaySettings {
   separator?: string
-  color?: AnsiColor
+  color?: AnsiColor | DisplayColorSettings
   brightColor?: boolean
   showErrors?: boolean
   keyWidth?: number
+  stat?: boolean
+  pipe?: boolean
+  disableLinewrap?: boolean
+  hideCursor?: boolean
+  noBuffer?: boolean
+  key?: DisplayKeySettings
+  size?: DisplaySizeSettings
+  temp?: DisplayTempSettings
+  bar?: DisplayBarSettings
+  percent?: DisplayPercentSettings
+  freq?: DisplayFreqSettings
+  duration?: DisplayDurationSettings
+  fraction?: DisplayFractionSettings
+}
+
+export interface GeneralSettings {
+  thread?: boolean
+  escapeBedrock?: boolean
+  playerName?: string
+  dsForceDrm?: boolean
+  wmiTimeout?: number
+  processingTimeout?: number
+  preRun?: string
+  detectVersion?: boolean
 }
 
 export interface GlobalSettings {
   logo: LogoSettings
   display: DisplaySettings
+  general?: GeneralSettings
 }
 
 export interface PresetConfig {
