@@ -2,6 +2,8 @@
 
 A visual web UI for building [fastfetch](https://github.com/fastfetch-cli/fastfetch) configurations. Instead of editing JSON files by hand, use a drag-and-drop interface with live preview.
 
+**Live demo:** https://kolezka.github.io/fastfetch-builder/
+
 ![Screenshot](screenshot.png)
 
 ## Features
