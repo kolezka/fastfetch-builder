@@ -6,14 +6,19 @@ export type AnsiColor =
 
 export type ModuleType =
   | 'title' | 'separator' | 'break' | 'os' | 'host' | 'kernel' | 'uptime'
-  | 'shell' | 'terminal' | 'wm' | 'de' | 'packages' | 'processes' | 'users'
-  | 'theme' | 'icons' | 'font' | 'cursor'
-  | 'cpu' | 'gpu' | 'memory' | 'swap' | 'disk' | 'physicaldisk'
-  | 'display' | 'brightness' | 'battery' | 'poweradapter'
-  | 'localip' | 'wifi' | 'dns' | 'bluetooth'
-  | 'sound' | 'player' | 'media' | 'datetime' | 'locale'
-  | 'opengl' | 'vulkan' | 'bios' | 'board' | 'chassis'
-  | 'colors' | 'custom' | 'cpuusage'
+  | 'shell' | 'terminal' | 'terminalfont' | 'terminalsize' | 'terminaltheme'
+  | 'wm' | 'wmtheme' | 'de' | 'packages' | 'processes' | 'users'
+  | 'theme' | 'icons' | 'font' | 'cursor' | 'wallpaper'
+  | 'editor' | 'lm' | 'initsystem' | 'version'
+  | 'cpu' | 'cpucache' | 'cpuusage' | 'gpu' | 'memory' | 'physicalmemory'
+  | 'swap' | 'disk' | 'physicaldisk' | 'diskio'
+  | 'display' | 'monitor' | 'brightness' | 'battery' | 'poweradapter'
+  | 'localip' | 'publicip' | 'wifi' | 'dns' | 'bluetooth' | 'bluetoothradio' | 'netio'
+  | 'sound' | 'player' | 'media' | 'datetime' | 'locale' | 'weather' | 'loadavg'
+  | 'opengl' | 'opencl' | 'vulkan' | 'bios' | 'board' | 'chassis' | 'bootmgr' | 'tpm'
+  | 'gamepad' | 'camera' | 'keyboard' | 'mouse'
+  | 'zpool' | 'btrfs'
+  | 'colors' | 'custom' | 'command'
 
 export interface ModuleOptions {
   key?: string
@@ -31,6 +36,8 @@ export interface ModuleOptions {
   showIpv6?: boolean
   compact?: boolean
   waitTime?: number
+  timeout?: number
+  text?: string
 }
 
 export type ModuleOptionField = keyof ModuleOptions
@@ -229,7 +236,11 @@ export const MODULE_DEFINITIONS: Record<ModuleType, ModuleDefinition> = {
   uptime: defineModule('uptime', 'Uptime', 'info', '⏱️'),
   shell: defineModule('shell', 'Shell', 'info', '🐚'),
   terminal: defineModule('terminal', 'Terminal', 'info', '📟'),
+  terminalfont: defineModule('terminalfont', 'Terminal Font', 'info', '🔡'),
+  terminalsize: defineModule('terminalsize', 'Terminal Size', 'info', '📐'),
+  terminaltheme: defineModule('terminaltheme', 'Terminal Theme', 'info', '🎨'),
   wm: defineModule('wm', 'Window Manager', 'info', '🪟'),
+  wmtheme: defineModule('wmtheme', 'WM Theme', 'info', '🎭'),
   de: defineModule('de', 'Desktop Environment', 'info', '🖥️'),
   packages: defineModule('packages', 'Packages', 'info', '📦'),
   processes: defineModule('processes', 'Processes', 'info', '⚙️'),
@@ -238,27 +249,40 @@ export const MODULE_DEFINITIONS: Record<ModuleType, ModuleDefinition> = {
   icons: defineModule('icons', 'Icons', 'info', '🖼️'),
   font: defineModule('font', 'Font', 'info', '🔤'),
   cursor: defineModule('cursor', 'Cursor', 'info', '🖱️'),
+  wallpaper: defineModule('wallpaper', 'Wallpaper', 'info', '🖼️'),
+  editor: defineModule('editor', 'Editor', 'info', '📝'),
+  lm: defineModule('lm', 'Login Manager', 'info', '🔐'),
+  initsystem: defineModule('initsystem', 'Init System', 'info', '🚀'),
+  version: defineModule('version', 'Fastfetch Version', 'info', '📋'),
 
   cpu: defineModule('cpu', 'CPU', 'hardware', '🔲', ['temp', 'showPeCoreCount', 'freqNdig'], { freqNdig: 2 }),
+  cpucache: defineModule('cpucache', 'CPU Cache', 'hardware', '💠'),
+  cpuusage: defineModule('cpuusage', 'CPU Usage', 'hardware', '📊'),
   gpu: defineModule('gpu', 'GPU', 'hardware', '🎮', ['temp', 'driverVersion']),
   memory: defineModule('memory', 'Memory', 'hardware', '🧠'),
+  physicalmemory: defineModule('physicalmemory', 'Physical Memory', 'hardware', '🔩'),
   swap: defineModule('swap', 'Swap', 'hardware', '💾'),
   disk: defineModule('disk', 'Disk', 'hardware', '💿', ['folders']),
   physicaldisk: defineModule('physicaldisk', 'Physical Disk', 'hardware', '💽'),
-  cpuusage: defineModule('cpuusage', 'CPU Usage', 'hardware', '📊'),
+  diskio: defineModule('diskio', 'Disk I/O', 'hardware', '📀'),
   battery: defineModule('battery', 'Battery', 'hardware', '🔋'),
   poweradapter: defineModule('poweradapter', 'Power Adapter', 'hardware', '🔌'),
   sound: defineModule('sound', 'Sound', 'hardware', '🔊'),
 
   display: defineModule('display', 'Display', 'display', '🖥️', ['compactType'], { compactType: 'none' }),
+  monitor: defineModule('monitor', 'Monitor', 'display', '🖥️'),
   brightness: defineModule('brightness', 'Brightness', 'display', '☀️'),
   opengl: defineModule('opengl', 'OpenGL', 'display', '🔺'),
+  opencl: defineModule('opencl', 'OpenCL', 'display', '🔷'),
   vulkan: defineModule('vulkan', 'Vulkan', 'display', '🌋'),
 
   localip: defineModule('localip', 'Local IP', 'network', '🌐', ['showIpv6', 'compact']),
+  publicip: defineModule('publicip', 'Public IP', 'network', '🌍', ['timeout'], { timeout: 1000 }),
   wifi: defineModule('wifi', 'WiFi', 'network', '📶'),
   dns: defineModule('dns', 'DNS', 'network', '🔎'),
   bluetooth: defineModule('bluetooth', 'Bluetooth', 'network', '📡'),
+  bluetoothradio: defineModule('bluetoothradio', 'Bluetooth Radio', 'network', '📻'),
+  netio: defineModule('netio', 'Network I/O', 'network', '📊'),
 
   bios: defineModule('bios', 'BIOS', 'other', '🧩'),
   board: defineModule('board', 'Motherboard', 'other', '🔧'),
@@ -267,8 +291,19 @@ export const MODULE_DEFINITIONS: Record<ModuleType, ModuleDefinition> = {
   media: defineModule('media', 'Media', 'other', '🎵'),
   datetime: defineModule('datetime', 'Date & Time', 'other', '📅'),
   locale: defineModule('locale', 'Locale', 'other', '🌍'),
+  weather: defineModule('weather', 'Weather', 'other', '🌤️', ['timeout'], { timeout: 1000 }),
+  loadavg: defineModule('loadavg', 'Load Average', 'other', '📈'),
+  bootmgr: defineModule('bootmgr', 'Boot Manager', 'other', '🔄'),
+  tpm: defineModule('tpm', 'TPM', 'other', '🔏'),
+  gamepad: defineModule('gamepad', 'Gamepad', 'other', '🎮'),
+  camera: defineModule('camera', 'Camera', 'other', '📷'),
+  keyboard: defineModule('keyboard', 'Keyboard', 'other', '⌨️'),
+  mouse: defineModule('mouse', 'Mouse', 'other', '🖱️'),
+  zpool: defineModule('zpool', 'ZFS Pool', 'other', '🗄️'),
+  btrfs: defineModule('btrfs', 'Btrfs', 'other', '🌲'),
   colors: defineModule('colors', 'Colors', 'other', '🎨'),
   custom: defineModule('custom', 'Custom', 'other', '✏️', ['shell']),
+  command: defineModule('command', 'Command', 'other', '💬', ['text', 'timeout']),
 } as const
 
 export const FORMAT_HINTS: Partial<Record<ModuleType, string>> = {
@@ -279,7 +314,11 @@ export const FORMAT_HINTS: Partial<Record<ModuleType, string>> = {
   uptime: '{1} days, {2} hours, {3} mins, {4} secs',
   shell: '{1} name, {2} version, {3} path, {4} pid',
   terminal: '{1} name, {2} version, {3} path, {4} pid',
+  terminalfont: '{1} name, {2} size',
+  terminalsize: '{1} rows, {2} columns',
+  terminaltheme: '{1} fg, {2} bg, {3} cursor',
   wm: '{1} name, {2} version, {3} protocol',
+  wmtheme: '{1} theme name',
   de: '{1} name, {2} version',
   packages: '{1} total, {2} pacman, {3} dpkg, {4} brew, {5} snap, {6} flatpak',
   processes: '{1} count',
@@ -288,23 +327,36 @@ export const FORMAT_HINTS: Partial<Record<ModuleType, string>> = {
   icons: '{1} icons1, {2} icons2, {3} icons3, {4} icons4',
   font: '{1} font1, {2} font2, {3} font3, {4} font4',
   cursor: '{1} name, {2} size',
+  wallpaper: '{1} path',
+  editor: '{1} name, {2} version, {3} path',
+  lm: '{1} name, {2} version',
+  initsystem: '{1} name, {2} version',
+  version: '{1} version, {2} name',
   cpu: '{1} name, {2} cores (physical), {3} cores (logical), {4} freq (base), {5} freq (max)',
   gpu: '{1} vendor, {2} name, {3} driver, {4} temp, {5} VRAM total, {6} VRAM used',
   memory: '{1} used, {2} total, {3} percentage',
   swap: '{1} used, {2} total, {3} percentage',
   disk: '{1} used, {2} total, {3} percentage, {4} files, {5} mount point',
+  physicalmemory: '{1} amount, {2} type, {3} speed, {4} locator',
   physicaldisk: '{1} name, {2} size, {3} type, {4} serial',
+  diskio: '{1} name, {2} read, {3} write, {4} readSpeed, {5} writeSpeed',
+  cpucache: '{1} L1 size, {2} L2 size, {3} L3 size',
   cpuusage: '{1} avg percentage',
   battery: '{1} manufacturer, {2} model, {3} tech, {4} capacity, {5} status, {6} temp',
   poweradapter: '{1} name, {2} watts, {3} manufacturer',
   sound: '{1} name, {2} volume, {3} identifier',
+  monitor: '{1} name, {2} width, {3} height, {4} size (inches)',
   display: '{1} width, {2} height, {3} refresh rate, {4} scaled width, {5} scaled height, {6} name, {7} type',
   brightness: '{1} percentage, {2} name',
   localip: '{1} ip, {2} iface, {3} mac, {4} subnet',
+  publicip: '{1} ip',
   wifi: '{1} ssid, {2} status, {3} security, {4} signal, {5} rx, {6} tx',
   dns: '{1} nameserver',
   bluetooth: '{1} name, {2} address, {3} type, {4} battery',
+  bluetoothradio: '{1} name, {2} address, {3} lmpVersion',
+  netio: '{1} interface, {2} rx, {3} tx, {4} rxSpeed, {5} txSpeed',
   opengl: '{1} version, {2} renderer, {3} vendor, {4} slv',
+  opencl: '{1} version, {2} device, {3} vendor',
   vulkan: '{1} api version, {2} driver, {3} conformance, {4} device',
   bios: '{1} vendor, {2} version, {3} date',
   board: '{1} name, {2} vendor, {3} version, {4} serial',
@@ -313,5 +365,16 @@ export const FORMAT_HINTS: Partial<Record<ModuleType, string>> = {
   media: '{1} title, {2} artist, {3} album, {4} track, {5} genre',
   datetime: '{1} year, {2} month, {3} day, {4} hour, {5} minute, {6} second, {7} weekday',
   locale: '{1} locale',
+  weather: '{1} temp, {2} condition, {3} humidity, {4} wind',
+  loadavg: '{1} 1m, {2} 5m, {3} 15m',
+  bootmgr: '{1} name, {2} firmware',
+  tpm: '{1} version',
+  gamepad: '{1} name, {2} serial',
+  camera: '{1} name, {2} vendor, {3} id',
+  keyboard: '{1} name, {2} vendor',
+  mouse: '{1} name, {2} vendor',
+  zpool: '{1} name, {2} state, {3} used, {4} total',
+  btrfs: '{1} name, {2} used, {3} total, {4} devices',
   custom: '{1} shell output (requires shell option)',
+  command: '{1} output',
 }

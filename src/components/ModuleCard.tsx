@@ -36,13 +36,16 @@ function OptionEditor({ module, field }: OptionEditorProps) {
     case 'format':
     case 'folders':
     case 'shell':
+    case 'text':
     case 'separator': {
       const hint = field === 'format' ? FORMAT_HINTS[module.type] : undefined
       const placeholder = field === 'shell'
         ? 'e.g. echo Hello'
-        : field === 'format' && hint
-          ? `e.g. {1} - ${hint.split(',')[0]?.replace('{1} ', '') ?? ''}`
-          : undefined
+        : field === 'text'
+          ? 'e.g. uname -r'
+          : field === 'format' && hint
+            ? `e.g. {1} - ${hint.split(',')[0]?.replace('{1} ', '') ?? ''}`
+            : undefined
       return (
         <label className="flex flex-col gap-1">
           <span className="font-mono text-xs text-text-muted">{field}</span>
@@ -129,6 +132,7 @@ function OptionEditor({ module, field }: OptionEditorProps) {
       )
 
     case 'waitTime':
+    case 'timeout':
       return (
         <label className="flex flex-col gap-1">
           <span className="font-mono text-xs text-text-muted">{field}</span>
