@@ -36,27 +36,29 @@ export function Header({ presetSlot }: HeaderProps) {
   }, [jsonc])
 
   return (
-    <header className="sticky top-0 z-10 flex h-14 items-center justify-between border-b border-border bg-bg-base px-4">
-      <div className="flex items-center gap-4">
-        <h1 className="font-mono text-lg font-semibold text-accent">
-          fastfetch config builder
+    <header className="sticky top-0 z-10 flex h-12 items-center justify-between border-b border-border bg-bg-base px-3 sm:h-14 sm:px-4">
+      <div className="flex min-w-0 items-center gap-2 sm:gap-4">
+        <h1 className="truncate font-mono text-sm font-semibold text-accent sm:text-lg">
+          <span className="sm:hidden">ff builder</span>
+          <span className="hidden sm:inline">fastfetch config builder</span>
         </h1>
         {presetSlot}
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex shrink-0 items-center gap-2 sm:gap-3">
         <button
           type="button"
           onClick={handleCopy}
-          className="rounded-md border border-accent px-3 py-1.5 font-mono text-xs font-medium text-accent transition-colors hover:bg-accent hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          className="rounded-md border border-accent px-2 py-1 font-mono text-xs font-medium text-accent transition-colors hover:bg-accent hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:px-3 sm:py-1.5"
         >
           {copyFeedback ? 'Copied!' : 'Copy'}
         </button>
         <button
           type="button"
           onClick={handleDownload}
-          className="rounded-md bg-accent px-3 py-1.5 font-mono text-xs font-medium text-black transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          className="rounded-md bg-accent px-2 py-1 font-mono text-xs font-medium text-black transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:px-3 sm:py-1.5"
         >
-          Download
+          <span className="sm:hidden">↓</span>
+          <span className="hidden sm:inline">Download</span>
         </button>
       </div>
     </header>

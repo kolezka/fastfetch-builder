@@ -40,7 +40,7 @@ export function PresetLoader() {
       </button>
 
       {open && (
-        <div className="absolute left-0 top-full z-20 mt-1 w-64 rounded-lg border border-border bg-bg-surface py-1">
+        <div className="absolute left-0 top-full z-20 mt-1 w-56 rounded-lg border border-border bg-bg-surface py-1 sm:w-64 max-h-[70vh] overflow-y-auto">
           {PRESETS.map((preset) => (
             <button
               key={preset.name}

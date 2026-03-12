@@ -70,7 +70,7 @@ export function JsonPreview() {
   )
 
   return (
-    <aside className="flex flex-col overflow-hidden border-l border-border">
+    <aside className="flex h-full flex-col overflow-hidden lg:border-l lg:border-border">
       <div className="flex items-center justify-between border-b border-border px-4 py-2">
         <h2 className="font-mono text-xs font-medium text-text-muted uppercase tracking-wider">
           JSONC Preview

@@ -25,7 +25,7 @@ export function ModuleList() {
   }, [loadPreset])
 
   return (
-    <main className="flex h-full flex-col overflow-hidden p-4 gap-0">
+    <main className="flex h-full flex-col overflow-hidden p-3 gap-0 sm:p-4">
       {/* Palette section - independent scroll with max-height */}
       <div className={`shrink-0 ${paletteCollapsed ? '' : 'max-h-[40%] overflow-y-auto'} pb-4`}>
         <ModulePalette

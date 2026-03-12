@@ -210,7 +210,7 @@ export function GlobalSettings() {
   const chafaDitherModeOptions = CHAFA_DITHER_MODES.map((m) => ({ value: m, label: m }))
 
   return (
-    <aside className="h-full overflow-y-auto border-r border-border p-4">
+    <aside className="h-full overflow-y-auto border-r border-border p-3 sm:p-4 lg:border-r">
       <h2 className="mb-4 font-mono text-sm font-medium text-text-muted uppercase tracking-wider">
         Global Settings
       </h2>
