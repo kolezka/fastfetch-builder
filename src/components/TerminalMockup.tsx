@@ -124,7 +124,7 @@ export function TerminalMockup() {
 
   const lines = useMemo(() => {
     const separator = globalSettings.display.separator ?? ': '
-    const displayColor = globalSettings.display.color ?? 'cyan'
+    const displayColor = (typeof globalSettings.display.color === 'string' ? globalSettings.display.color : 'cyan') as AnsiColor
     const brightColor = globalSettings.display.brightColor ?? true
     return modules.map((m) => getModuleLine(m, separator, displayColor, brightColor))
   }, [modules, globalSettings.display.separator, globalSettings.display.color, globalSettings.display.brightColor])
