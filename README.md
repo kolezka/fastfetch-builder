@@ -11,7 +11,7 @@ A visual web UI for building [fastfetch](https://github.com/fastfetch-cli/fastfe
 - **40+ modules** — CPU, GPU, Memory, Disk, Network, Display, and more, organized by category
 - **Drag-and-drop reordering** — rearrange modules with drag handles or up/down buttons
 - **Per-module options** — customize labels, colors, separators, and type-specific settings
-- **Global settings** — configure logo source/type/padding, display separator, ANSI color, key width
+- **Comprehensive global settings** — full control over every fastfetch option: logo (source, type, position, size, padding, chafa rendering), display (separator, colors, key formatting, size/temp/bar/percent/frequency/duration/fraction formatting), and general (threading, timeouts, version detection)
 - **Live JSONC preview** — see the exact config file update in real time
 - **Terminal mockup** — approximate preview of what fastfetch output will look like
 - **Presets** — start from Neofetch, Minimal, Hardware, or Developer presets
@@ -37,7 +37,7 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 2. **Click modules** from the palette to add them to your config
 3. **Drag to reorder** or use the arrow buttons
 4. **Expand a module** to configure its options (key label, colors, type-specific settings)
-5. **Adjust global settings** in the left sidebar (logo, separator, color scheme)
+5. **Adjust global settings** in the left sidebar — expand collapsible sections for Logo, Display, Temperature, Bar, Size, Frequency, Duration, Fraction, and General options
 6. **Copy or download** the generated JSONC config
 7. Place the file at `~/.config/fastfetch/config.jsonc`
 
@@ -58,6 +58,8 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 | `npm run build` | Type-check and build for production |
 | `npm run preview` | Preview production build locally |
 | `npm run typecheck` | Run TypeScript type checking |
+| `npm run test` | Run unit tests (Vitest) |
+| `npm run test:e2e` | Run end-to-end tests (Playwright) |
 
 ## Project Structure
 
@@ -65,7 +67,7 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 src/
 ├── components/
 │   ├── Header.tsx            # Title bar with preset loader
-│   ├── GlobalSettings.tsx    # Logo and display settings sidebar
+│   ├── GlobalSettings.tsx    # Full settings sidebar (logo, display, general)
 │   ├── ModuleList.tsx        # Active modules with reorder support
 │   ├── ModulePalette.tsx     # Available modules grid
 │   ├── ModuleCard.tsx        # Individual module with options editor
