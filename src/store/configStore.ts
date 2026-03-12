@@ -29,7 +29,9 @@ export interface ConfigState {
   addModule: (type: ModuleType, index?: number) => void
   removeModule: (id: string) => void
   updateModuleOptions: (id: string, options: Partial<ModuleOptions>) => void
+  setModules: (modules: ModuleInstance[]) => void
   reorderModules: (activeId: string, overId: string) => void
+  moveModule: (id: string, direction: 'up' | 'down') => void
   duplicateModule: (id: string) => void
 
   loadPreset: (preset: PresetConfig) => void
@@ -144,6 +146,9 @@ export const useConfigStore = create<ConfigState>()(
           ),
         })),
 
+      setModules: (modules) =>
+        set({ modules }),
+
       reorderModules: (activeId, overId) =>
         set((state) => {
           const oldIndex = state.modules.findIndex((m) => m.id === activeId)
@@ -153,6 +158,20 @@ export const useConfigStore = create<ConfigState>()(
           const [moved] = modules.splice(oldIndex, 1)
           if (moved) {
             modules.splice(newIndex, 0, moved)
+          }
+          return { modules }
+        }),
+
+      moveModule: (id, direction) =>
+        set((state) => {
+          const index = state.modules.findIndex((m) => m.id === id)
+          if (index === -1) return state
+          const targetIndex = direction === 'up' ? index - 1 : index + 1
+          if (targetIndex < 0 || targetIndex >= state.modules.length) return state
+          const modules = [...state.modules]
+          const [moved] = modules.splice(index, 1)
+          if (moved) {
+            modules.splice(targetIndex, 0, moved)
           }
           return { modules }
         }),

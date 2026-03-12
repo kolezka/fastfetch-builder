@@ -116,7 +116,7 @@ export function GlobalSettings() {
   const logoTypeOptions = LOGO_TYPES.map((t) => ({ value: t, label: t }))
 
   return (
-    <aside className="overflow-y-auto border-r border-border p-4">
+    <aside className="h-full overflow-y-auto border-r border-border p-4">
       <h2 className="mb-4 font-mono text-sm font-medium text-text-muted uppercase tracking-wider">
         Global Settings
       </h2>
